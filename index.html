@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Voya Oracle | Твоя судьба</title>
+    <meta name="theme-color" content="#0a0515">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Встроенная иконка (неоновая звезда) -->
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmYiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4YjVjZjYiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSIjMGEwNTE1Ii8+PHBvbHlnb24gcG9pbnRzPSI5NiwyMCAxMTAsODAgMTcwLDgwIDEyMCwxMTAgMTQwLDE3MCA5NiwxMzAgNTIsMTcwIDcyLDExMCAyMiw4MCA4Miw4MCIgZmlsbD0idXJsKCNnKSIvPjwvc3ZnPg==">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        
+        body {
+            background: radial-gradient(circle at top, #1a0b2e 0%, #05020a 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Светящиеся сферы на фоне */
+        .orb {
+            position: fixed; border-radius: 50%; filter: blur(60px); z-index: -1; opacity: 0.5;
+            animation: float 8s infinite alternate;
+        }
+        .orb-1 { width: 250px; height: 250px; background: #8b5cf6; top: -50px; left: -50px; }
+        .orb-2 { width: 300px; height: 300px; background: #ec4899; bottom: -50px; right: -50px; animation-delay: -4s; }
+        @keyframes float { 0% { transform: translate(0,0); } 100% { transform: translate(30px, 30px); } }
+
+        .container {
+            width: 100%; max-width: 500px;
+            background: rgba(20, 10, 35, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+            margin-top: 40px;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2rem; font-weight: 900; letter-spacing: 2px;
+            background: linear-gradient(90deg, #a78bfa, #f472b6);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        p.sub {
+            font-size: 0.9rem; color: #a78bfa; margin-bottom: 30px; letter-spacing: 1px;
+        }
+
+        .crystal-ball {
+            width: 120px; height: 120px; margin: 0 auto 30px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(139, 92, 246, 0.5) 40%, rgba(20, 10, 35, 1) 80%);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6), inset 0 0 20px rgba(255,255,255,0.5);
+            animation: pulse 3s infinite alternate;
+        }
+        @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 20px rgba(139, 92, 246, 0.4); } 100% { transform: scale(1.05); box-shadow: 0 0 50px rgba(139, 92, 246, 0.8); } }
+
+        input {
+            width: 100%; padding: 16px; border-radius: 12px;
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(139, 92, 246, 0.4);
+            color: #fff; font-size: 1rem; text-align: center;
+            outline: none; margin-bottom: 15px; transition: 0.3s;
+        }
+        input:focus { border-color: #a78bfa; box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
+
+        button {
+            width: 100%; padding: 18px; border: none; border-radius: 12px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            color: #fff; font-weight: 800; font-size: 1.1rem; text-transform: uppercase;
+            cursor: pointer; transition: 0.3s; box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        #resultBox {
+            display: none; margin-top: 25px; padding: 20px;
+            background: rgba(0,0,0,0.3); border-radius: 15px;
+            border-left: 4px solid #a78bfa; text-align: left;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        #predictionText {
+            font-size: 1rem; line-height: 1.6; color: #e2e8f0;
+        }
+
+        .btn-share {
+            margin-top: 15px; background: transparent; border: 1px solid #ec4899; color: #ec4899;
+            box-shadow: none; display: none;
+        }
+        .btn-share:hover { background: rgba(236, 72, 153, 0.1); box-shadow: none; }
+    </style>
+</head>
+<body>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <h1>VOYA ORACLE</h1>
+        <p class="sub">Приоткрой завесу тайны</p>
+        
+        <div class="crystal-ball"></div>
+
+        <input type="text" id="userName" placeholder="Введи свое имя..." autocomplete="off">
+        
+        <button id="askBtn" onclick="getPrediction()">Узнать свою судьбу</button>
+
+        <div id="resultBox">
+            <p id="predictionText"></p>
+            <button class="btn-share" id="shareBtn" onclick="sharePrediction()">📲 Поделиться в Stories</button>
+        </div>
+    </div>
+
+    <script>
+        function playVoice(text) {
+            let cleanText = text.replace(/[*#\n]/g, ' ').replace(/\s+/g, ' ').trim();
+            if (cleanText.length > 190) cleanText = cleanText.substring(0, 190) + "...";
+            const url = `https://api.streamelements.com/kappa/v2/speech?voice=ru-RU-Wavenet-A&text=${encodeURIComponent(cleanText)}`;
+            const audio = new Audio(url);
+            audio.play().catch(e => console.log("Звук заблокирован"));
+        }
+
+        async function getPrediction() {
+            const nameInput = document.getElementById('userName').value.trim();
+            const name = nameInput || "Странник";
+            const btn = document.getElementById('askBtn');
+            const resultBox = document.getElementById('resultBox');
+            const textEl = document.getElementById('predictionText');
+            const shareBtn = document.getElementById('shareBtn');
+
+            btn.disabled = true;
+            btn.innerText = "Смотрим в будущее...";
+            resultBox.style.display = "none";
+            shareBtn.style.display = "none";
+
+            let prompt = `Ты - мистический Оракул. Дай короткое (до 40 слов) позитивное, загадочное и глубокое предсказание на сегодня для человека по имени ${name}. Напиши так, чтобы это выглядело как тайное знание.`;
+
+            try {
+                const response = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}`);
+                const answer = await response.text();
+
+                textEl.innerHTML = answer.replace(/\*\*(.*?)\*\*/g, '<b style="color:#fff; text-shadow:0 0 5px #a78bfa;">$1</b>');
+                
+                resultBox.style.display = "block";
+                shareBtn.style.display = "block";
+                
+                // Озвучиваем
+                playVoice(answer);
+                
+                btn.disabled = false;
+                btn.innerText = "Спросить снова";
+            } catch (e) {
+                textEl.innerText = "Ошибка связи с космосом. Проверьте интернет.";
+                resultBox.style.display = "block";
+                btn.disabled = false;
+                btn.innerText = "Повторить";
+            }
+        }
+
+        function sharePrediction() {
+            const text = document.getElementById('predictionText').innerText;
+            const shareData = {
+                title: 'Мое предсказание от Voya',
+                text: `🌌 Мое предсказание на сегодня:\n\n"${text}"\n\nУзнай свою судьбу в Voya Oracle!`,
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData).catch(console.error);
+            } else {
+                // Если нет нативной кнопки "Поделиться", просто копируем текст
+                navigator.clipboard.writeText(shareData.text).then(() => {
+                    alert('Текст скопирован! Вставь его в сторис или сообщение.');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
